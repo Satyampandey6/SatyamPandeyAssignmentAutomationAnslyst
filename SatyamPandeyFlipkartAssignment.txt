@@ -1,0 +1,60 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+serv_obj=Service()
+driver=webdriver.Chrome()
+driver.maximize_window()
+
+#Open Flipkart Website:
+#Open the ShopNow website: https://www.flipkart.com
+#Verify that the homepage loads successfully.
+
+driver.get("https://www.flipkart.com/")
+time.sleep(3)
+
+#Search and Add to Cart:
+#In the search bar, type "laptop" and press Enter.
+
+driver.find_element(By.NAME,"q").send_keys("laptop")
+driver.find_element(By.XPATH,"//button[@title='Search for Products, Brands and More']").click()
+
+#Click on one of the search results to view the product details.
+
+Product_link=driver.find_element(By.XPATH,"//*[@id='container']/div/div[3]/div[1]/div[2]/div[2]/div/div/div/a/div[2]/div[1]/div[2]")
+Product_link.click()
+
+## Switch to the new tab
+
+window_handles = driver.window_handles
+for handle in window_handles:
+    if handle != driver.current_window_handle:
+        driver.switch_to.window(handle)
+
+#Add the selected laptop to the shopping cart.
+
+#Proceed to Checkout:
+#Navigate to the shopping cart.
+#Verify that the correct item is in the cart.
+#Click on the "Proceed to Checkout" button.
+
+Add_to_cart=driver.find_element(By.XPATH,"//button[normalize-space()='Add to cart']")
+Add_to_cart.click()
+time.sleep(3)
+driver.find_element(By.XPATH,"//button[normalize-space()='Place Order']").click()
+time.sleep(3)
+
+#User Authentication:
+#On the login page, enter valid credentials (username and password) to log in.
+#Verify that the user is successfully logged in.
+
+driver.find_element(By.XPATH,"//input[@type='text']").send_keys("9721625471")
+time.sleep(3)
+driver.find_element(By.XPATH,"//button[normalize-space()='CONTINUE']").click()
+time.sleep(3)
+driver.close()
+
+
+
+
+
