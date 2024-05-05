@@ -1,0 +1,29 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+serv_obj=Service()
+driver=webdriver.Chrome()
+driver.get("https://www.oyorooms.com/")
+driver.maximize_window()
+driver.find_element(By.LINK_TEXT,"Pune").click()
+time.sleep(8)
+driver.find_element(By.XPATH,"//div[@name='HotelListCard-223629']//span[contains(text(),'Book Now')]").click()
+time.sleep(5)
+
+
+window_handles = driver.window_handles
+for handle in window_handles:
+    if handle != driver.current_window_handle:
+        driver.switch_to.window(handle)
+
+
+driver.find_element(By.XPATH,"//*[@id='name']").send_keys("Satyam Pandey")
+time.sleep(6)
+driver.find_element(By.XPATH,"//*[@id='email']").send_keys("Satyampandey32200@gmail.com")
+time.sleep(5)
+#driver.find_element(By.XPATH,"/html/body/div[1]/div/div[3]/div/div/div[2]/div[5]/div[2]/div/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[4]/div[2]/input").send_keys("9721625471")
+#time.sleep(5)
+#driver.find_element(By.XPATH,"//*[@id='root']/div/div[3]/div/div/div[2]/div[5]/div[2]/div/div[2]/div[1]/div[2]/div/div[2]/div[1]/div[5]/div/button").click()
+#time.sleep(5)
+driver.close()
